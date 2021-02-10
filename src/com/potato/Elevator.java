@@ -35,6 +35,10 @@ public class Elevator
 		{
 			this.floor = endFloor;
 		}
+		else
+		{
+			System.out.println("这啥楼层呦");
+		}
 	}
 
 	/**
@@ -43,6 +47,31 @@ public class Elevator
 	 */
 	public void moveFor(int forFloor)
 	{
+		int beforeFloor = this.floor;
+		int afterFloor = beforeFloor + forFloor;
+		if (afterFloor >= FLOOR_MIN && afterFloor <= FLOOR_MAX)
+		{
+			moveTo(afterFloor);
+		}
+		else
+		{
+			System.out.println("这啥楼层呦");
+		}
+	}
 
+	/**
+	 * 比较方便的上移一层
+	 */
+	public void up()
+	{
+		this.floor += 1;
+	}
+
+	/**
+	 * 比较方便的下移一层
+	 */
+	public void down()
+	{
+		this.floor -= 1;
 	}
 }
