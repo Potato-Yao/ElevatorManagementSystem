@@ -6,11 +6,11 @@ package com.potato;
 
 public class Elevator
 {
-	int id;  // 电梯名
+	static int id = 0;  // 电梯名
 	int floor;  // 所在层数
 
-	final int FLOOR_MIN = -2;  //  最低层数
-	final int FLOOR_MAX = 1000;  // 最高层数
+	static final int FLOOR_MIN = -2;  //  最低层数
+	static final int FLOOR_MAX = 1000;  // 最高层数
 
 	final int SPEED = 2;  // 电梯运行速度，单位m/s
 
@@ -21,8 +21,30 @@ public class Elevator
 	 */
 	public Elevator(int id, int floor)
 	{
-		this.id = id;
 		this.floor = floor;
+	}
+
+	public void setFloor(int floor) throws FloorNumberException
+	{
+		if (floor >= FLOOR_MIN && floor <= FLOOR_MAX)
+		{
+			this.floor = floor;
+		}
+		else
+		{
+			System.out.println("这啥楼层呦");
+			throw new FloorNumberException("楼层高度错误");
+		}
+	}
+
+	public int getId()
+	{
+		return id;
+	}
+
+	public int getFloor()
+	{
+		return floor;
 	}
 
 	/**
@@ -31,13 +53,12 @@ public class Elevator
 	 */
 	public void moveTo(int endFloor)
 	{
-		if (endFloor >= FLOOR_MIN && endFloor <= FLOOR_MAX)
+		try
 		{
-			this.floor = endFloor;
-		}
-		else
+			setFloor(endFloor);
+		} catch (FloorNumberException e)
 		{
-			System.out.println("这啥楼层呦");
+			e.printStackTrace();
 		}
 	}
 
@@ -49,14 +70,7 @@ public class Elevator
 	{
 		int beforeFloor = this.floor;
 		int afterFloor = beforeFloor + forFloor;
-		if (afterFloor >= FLOOR_MIN && afterFloor <= FLOOR_MAX)
-		{
-			moveTo(afterFloor);
-		}
-		else
-		{
-			System.out.println("这啥楼层呦");
-		}
+		moveTo(afterFloor);
 	}
 
 	/**
@@ -64,7 +78,13 @@ public class Elevator
 	 */
 	public void up()
 	{
-		this.floor += 1;
+		try
+		{
+			setFloor(floor + 1);
+		} catch (FloorNumberException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -72,6 +92,17 @@ public class Elevator
 	 */
 	public void down()
 	{
-		this.floor -= 1;
+		try
+		{
+			setFloor(floor - 1);
+		} catch (FloorNumberException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public String massagePrinter()
+	{
+		return "No." + getId() + " elevator is on the floor " + getFloor();
 	}
 }
