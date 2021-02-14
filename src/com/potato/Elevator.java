@@ -11,6 +11,7 @@ public class Elevator
 
 	static final int FLOOR_MIN = -2;  //  最低层数
 	static final int FLOOR_MAX = 1000;  // 最高层数
+	final int FLOOR_MIDDLE = (FLOOR_MAX + FLOOR_MIN) / 2;  // 中间层数
 
 	final int SPEED = 2;  // 电梯运行速度，单位m/s
 
